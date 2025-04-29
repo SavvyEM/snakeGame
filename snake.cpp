@@ -5,7 +5,7 @@
 #include <QMessageBox>
 #include <QApplication>
 
-Snake::Snake(QGraphicsScene *scene) : scene(scene), currentFood(nullptr)
+Snake::Snake(QGraphicsScene *scene) : scene(scene), currentFood(nullptr), gameOver()
 {
     setRect(0, 0, 20, 20);
     setBrush(Qt::green);
@@ -36,7 +36,7 @@ Snake::Snake(QGraphicsScene *scene) : scene(scene), currentFood(nullptr)
 
 void Snake::setDirection(Direction dir)
 {
-    currentDirection = dir;
+    if(!isOppositeDirection(dir)) currentDirection = dir;
 }
 
 void Snake::move()
@@ -160,4 +160,19 @@ void Snake::spawnObstacle()
             delete obs;
         }
     });
+}
+
+bool Snake::isOppositeDirection(Direction newDirection) {
+    switch (currentDirection) {
+    case Up:
+        return newDirection == Down;
+    case Down:
+        return newDirection == Up;
+    case Left:
+        return newDirection == Right;
+    case Right:
+        return newDirection == Left;
+    default:
+        return false;
+    }
 }

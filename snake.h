@@ -20,6 +20,7 @@ public:
     void spawnFood();
     void setDirection(Direction dir);
     Direction getCurrentDirection() const;
+    bool isOppositeDirection(Direction newDirection);
 
 private slots:
     void spawnObstacle();
@@ -34,6 +35,7 @@ private:
     Food* currentFood;
     int score;
     QGraphicsTextItem* scoreText;
+    bool gameOver;
 };
 
 #endif // SNAKE_H
