@@ -24,6 +24,14 @@ Snake::Snake(QGraphicsScene *scene) : scene(scene), currentFood(nullptr)
     obstacleTimer = new QTimer(this);
     connect(obstacleTimer, &QTimer::timeout, this, &Snake::spawnObstacle);
     obstacleTimer->start(3000);
+
+    score = 0;
+    scoreText = new QGraphicsTextItem();
+    scoreText->setPlainText("Очки: 0");
+    scoreText->setDefaultTextColor(Qt::white);
+    scoreText->setFont(QFont("Arial", 16));
+    scoreText->setPos(10, 10);
+    scene->addItem(scoreText);
 }
 
 void Snake::setDirection(Direction dir)
@@ -101,6 +109,9 @@ void Snake::move()
             currentFood = nullptr;
             grow();
             spawnFood();
+
+            score += 10;
+            scoreText->setPlainText("Очки: " + QString::number(score));
         }
     }
 }

@@ -2,6 +2,7 @@
 #define SNAKE_H
 
 #include <QGraphicsRectItem>
+#include <QGraphicsTextItem>
 #include <QTimer>
 #include <QList>
 #include "food.h"
@@ -31,6 +32,8 @@ private:
     Direction currentDirection;
     QGraphicsScene *scene;
     Food* currentFood;
+    int score;
+    QGraphicsTextItem* scoreText;
 };
 
 #endif // SNAKE_H
