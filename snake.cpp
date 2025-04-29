@@ -14,6 +14,8 @@ Snake::Snake(QGraphicsScene *scene) : scene(scene), currentFood(nullptr), gameOv
     body.append(this);
 
     currentDirection = Right;
+    nextDirection = Right;
+    canChangeDirection = true;
 
     moveTimer = new QTimer(this);
     connect(moveTimer, &QTimer::timeout, this, &Snake::move);
@@ -36,11 +38,21 @@ Snake::Snake(QGraphicsScene *scene) : scene(scene), currentFood(nullptr), gameOv
 
 void Snake::setDirection(Direction dir)
 {
-    if(!isOppositeDirection(dir)) currentDirection = dir;
+    if((currentDirection == Up && dir == Down) ||
+        (currentDirection == Down && dir == Up) ||
+        (currentDirection == Left && dir == Right) ||
+        (currentDirection == Right && dir == Left)) return;
+    if(canChangeDirection){
+        nextDirection = dir;
+        canChangeDirection = false;
+    }
 }
 
 void Snake::move()
 {
+    currentDirection = nextDirection;
+    canChangeDirection = true;
+
     QPointF headPos = body.first()->pos();
     QPointF newPos = headPos;
 

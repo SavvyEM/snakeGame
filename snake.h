@@ -21,6 +21,8 @@ public:
     void setDirection(Direction dir);
     Direction getCurrentDirection() const;
     bool isOppositeDirection(Direction newDirection);
+    Direction nextDirection;
+    bool canChangeDirection;
 
 private slots:
     void spawnObstacle();
